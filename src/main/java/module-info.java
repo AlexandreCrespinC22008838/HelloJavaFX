@@ -7,4 +7,5 @@ module com.example.hello2 {
 
     opens com.example.hello2 to javafx.fxml;
     exports com.example.hello2;
+    exports com.example.partie1;
 }
