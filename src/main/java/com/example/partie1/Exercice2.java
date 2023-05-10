@@ -30,6 +30,7 @@ public class Exercice2 extends Application {
     public void start(Stage primaryStage) {
         //Create the GridPane
         GridPane root = new GridPane();
+        root.setGridLinesVisible(true);
         root.getColumnConstraints().add(new ColumnConstraints(50));
         root.getColumnConstraints().add(new ColumnConstraints(50));
 
@@ -70,7 +71,7 @@ public class Exercice2 extends Application {
         }
 
         // set the scene
-        Scene scene = new Scene(root, 600, 400);
+        Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Tic Tac Toe");
         primaryStage.initStyle(StageStyle.UTILITY);
