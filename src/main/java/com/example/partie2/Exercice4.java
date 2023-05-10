@@ -25,7 +25,7 @@ public class Exercice4 extends Application {
 
     //Compteurs
     AtomicInteger cmpV = new AtomicInteger(0);
-    AtomicInteger cmpR = new AtomicInteger(0);
+    AtomicInteger cmpR = new AtomicInteger( 0);
     AtomicInteger cmpB = new AtomicInteger(0);
     public static void main(String[] args) {
         launch(args);
@@ -38,11 +38,9 @@ public class Exercice4 extends Application {
         root.setPrefSize(400,200);
 
         //Create Label top page
-        HBox topHbox = new HBox();
         Label topLabel = new Label("");
-        topHbox.getChildren().addAll(topLabel);
-        topHbox.setAlignment(Pos.CENTER);
-        root.setTop(topHbox);
+        BorderPane.setAlignment(topLabel,Pos.TOP_CENTER);
+        root.setTop(topLabel);
 
         //Create Pane center page
         Pane centerPane = new Pane();
