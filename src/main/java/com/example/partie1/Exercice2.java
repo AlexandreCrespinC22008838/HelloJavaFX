@@ -1,5 +1,6 @@
 package com.example.partie1;
 
+import com.example.partie2.BonjourFenetre;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -12,6 +13,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -37,21 +39,32 @@ public class Exercice2 extends Application {
                 Random random = new Random();
                 int nombre = random.nextInt(3);
                 if (nombre==0){
-                    Label label1 = new Label("croix");
+                    Label label1 = new Label();
+                    Image image1 = new Image( Exercice2.class.getResource("Croix.png").toString() );
+                    ImageView iv1 = new ImageView();
+                    iv1.setImage(image1);
+                    label1.setGraphic(iv1);
                     GridPane.setConstraints(label1,i,j);
                     root.getChildren().addAll(label1);
                 }
                 if (nombre==1){
-                    Label label2 = new Label("rond");
+                    Label label2 = new Label();
+                    Image image2 = new Image( Exercice2.class.getResource("Rond.png").toString() );
+                    ImageView iv2 = new ImageView();
+                    iv2.setImage(image2);
+                    label2.setGraphic(iv2);
                     GridPane.setConstraints(label2,i,j);
                     root.getChildren().addAll(label2);
                 }
                 if (nombre==2){
-                    Label label3 = new Label("vide");
+                    Label label3 = new Label();
+                    Image image3 = new Image( Exercice2.class.getResource("Vide.png").toString() );
+                    ImageView iv3 = new ImageView();
+                    iv3.setImage(image3);
+                    label3.setGraphic(iv3);
                     GridPane.setConstraints(label3,i,j);
                     root.getChildren().addAll(label3);
-            }
-
+                }
             }
 
         }
