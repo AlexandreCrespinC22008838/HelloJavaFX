@@ -1,104 +1,103 @@
 package com.example.partie1;
-
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.Separator;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Exercice1 extends Application {
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-
     @Override
     public void start(Stage primaryStage) {
+        BorderPane root = new BorderPane();
 
-        // Création du conteneur principal
-        VBox vbox = new VBox();
+        MenuBar menuBar = new MenuBar();
 
-        // Création de la barre de menu
-        MenuItem New = new MenuItem("New");
-        MenuItem Open = new MenuItem("Open");
-        MenuItem Save = new MenuItem("Save");
-        MenuItem Close = new MenuItem("Close");
-        Menu File = new Menu("File");
-        File.getItems().addAll(New,Open,Save,Close);
+        // create File menu
+        Menu fileMenu = new Menu("File");
+        MenuItem newItem = new MenuItem("New");
+        MenuItem openItem = new MenuItem("Open");
+        MenuItem saveItem = new MenuItem("Save");
+        MenuItem exitItem = new MenuItem("Exit");
+        fileMenu.getItems().addAll(newItem, openItem, saveItem, exitItem);
 
-        MenuItem Cut = new MenuItem("Cut");
-        MenuItem Copy = new MenuItem("Copy");
-        MenuItem Paste = new MenuItem("Paste");
-        Menu Edit = new Menu("Edit");
-        Edit.getItems().addAll(Cut,Copy,Paste);
+        // create Edit menu
+        Menu editMenu = new Menu("Edit");
+        MenuItem cutItem = new MenuItem("Cut");
+        MenuItem copyItem = new MenuItem("Copy");
+        MenuItem pasteItem = new MenuItem("Paste");
+        editMenu.getItems().addAll(cutItem, copyItem, pasteItem);
 
-        Menu Help = new Menu("Help");
+        // add menus to menu bar
+        menuBar.getMenus().addAll(fileMenu, editMenu, new Menu("Help"));
 
-        MenuBar menuBar = new MenuBar(File,Edit,Help);
+        // add menu bar to root pane
+        root.setTop(menuBar);
 
-        // Création de la barre de bouton
-        Label btn = new Label("Boutons :");
-        Button btn1 = new Button("Bouton 1");
-        Button btn2 = new Button("Bouton 2");
-        Button btn3 = new Button("Bouton 3");
-        Separator separator = new Separator(Orientation.HORIZONTAL);
-        VBox btnBar = new VBox(btn,btn1,btn2,btn3);
+        // create left section with buttons
+        VBox leftBox = new VBox();
+        leftBox.setAlignment(Pos.CENTER);
+        leftBox.setSpacing(10);
 
-        // Création du formulaire
-        GridPane formulaire = new GridPane();
+        Label buttonLabel = new Label("Boutons :");
 
-        Label name = new Label("Name : ");
-        GridPane.setConstraints(name,0,0);
-        TextField tfName = new TextField();
-        tfName.setPrefColumnCount(12);
-        GridPane.setConstraints(tfName,1,0);
+        Button button1 = new Button("Bouton 1");
+        Button button2 = new Button("Bouton 2");
+        Button button3 = new Button("Bouton 3");
+        leftBox.getChildren().addAll(buttonLabel,button1, button2, button3);
 
-        Label email = new Label("Email : ");
-        GridPane.setConstraints(email,0,1);
-        TextField tfEmail = new TextField();
-        tfName.setPrefColumnCount(12);
-        GridPane.setConstraints(tfEmail,1,1);
+        // add separator between left section and center section
+        root.setLeft(new HBox(leftBox, new Separator(Orientation.VERTICAL)));
 
-        Label password = new Label("Password : ");
-        GridPane.setConstraints(password,0,2);
-        TextField tfPassword = new TextField();
-        tfName.setPrefColumnCount(12);
-        GridPane.setConstraints(tfPassword,1,2);
+        // create center section with form
+        GridPane grilleFormulaire = new GridPane();
+        grilleFormulaire.setAlignment(Pos.CENTER);
+        grilleFormulaire.setHgap(10);
+        grilleFormulaire.setVgap(10);
+        grilleFormulaire.setPadding(new Insets(10));
 
-        formulaire.getChildren().addAll(name,tfName,email,tfEmail,password,tfPassword);
+        grilleFormulaire.addRow(0, new Label("Name:"), new TextField());
+        grilleFormulaire.addRow(1, new Label("Email:"), new TextField());
+        grilleFormulaire.addRow(2, new Label("Password:"), new TextField());
 
-        Button submit = new Button("Submit");
-        Button cancel = new Button("Cancel");
-        HBox btnSubCan = new HBox(submit,cancel);
-        btnSubCan.setAlignment(Pos.CENTER);
+        HBox buttonBox = new HBox();
+        buttonBox.setAlignment(Pos.CENTER);
+        buttonBox.setSpacing(10);
 
-        VBox form = new VBox(formulaire,btnSubCan);
-        // Création du centre
-        HBox center = new HBox(btnBar,form);
+        buttonBox.getChildren().addAll(new Button("Submit"), new Button("Cancel"));
 
-        //Création du label de bas de page
-        HBox basPage = new HBox();
-        basPage.setAlignment(Pos.CENTER);
-        Label labelBasPage = new Label("Ceci est un label de bas de page");
-        basPage.getChildren().add(labelBasPage);
+        grilleFormulaire.add(buttonBox, 0, 3, 2, 1);
 
-        // Ajout des contrôleurs au conteneur principal
-        VBox.setVgrow(center, Priority.ALWAYS );
-        vbox.getChildren().addAll(menuBar,center,basPage);
+        root.setCenter(grilleFormulaire);
 
-        // Ajout du conteneur à la scene
-        Scene scene = new Scene(vbox);
+        // create bottom section with status label
+        Label statusLabel = new Label("Ceci est un label de bas de page");
+        VBox bas = new VBox(new Separator(Orientation.HORIZONTAL),statusLabel);
+        bas.setAlignment(Pos.CENTER);
+        root.setBottom(bas);
 
-        // Ajout de la scene à la fenêtre et changement de ses paramètres (dimensions et titre)
-        primaryStage.setScene( scene );
-        primaryStage.setWidth( 800 );
-        primaryStage.setHeight( 600 );
-        primaryStage.setTitle("Premier exemple manipulant les contenaurs");
 
-        // Affichage de la fenêtre
+        // set the scene
+        Scene scene = new Scene(root, 600, 400);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Premier exemple manipulant les conteneurs");
         primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+
     }
 }
