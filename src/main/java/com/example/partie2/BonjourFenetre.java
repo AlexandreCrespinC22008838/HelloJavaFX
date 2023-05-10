@@ -1,6 +1,7 @@
 package com.example.partie2;
 
 import javafx.application.Application;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -26,11 +27,6 @@ public class BonjourFenetre extends Application {
     // Bouton déclenchant la mise à jour du texte
     private Button button;
 
-    // Gestionnaire d'évènements appelé lors du clic sur le bouton
-    EventHandler<MouseEvent> buttonClickHandler = actionEvent -> {
-        helloLabel.setText( "Bonjour à toi, "+nameField.getText() );
-    };
-
 
     public static void main(String[] args) {
         launch(args);
@@ -48,13 +44,16 @@ public class BonjourFenetre extends Application {
         vbox.getChildren().add( helloLabel );
 
         // Ajout d'un champ de saisi de texte de taille 180 pixels
-        TextField nameField = new TextField("Veuillez saisir un nom");
+        this.nameField = new TextField("Veuillez saisir un nom");
         nameField.setMaxWidth(180.0d);
         nameField.setFont( Font.font("Courier", FontWeight.NORMAL, 12) );
+
+        nameField.setOnAction( actionEvent -> handleButonClick(actionEvent) );
+
         vbox.getChildren().add( nameField );
 
         // Ajout d'un bouton avec du texte
-        Button button = new Button();
+        this.button = new Button();
         vbox.getChildren().add( button );
 
         // Chargement de l'image
@@ -68,7 +67,8 @@ public class BonjourFenetre extends Application {
         button.setGraphic( iv );
 
         // Changement du texte après un clic sur le bouton
-        button.addEventHandler(MouseEvent.MOUSE_CLICKED, buttonClickHandler);
+        button.addEventHandler(MouseEvent.MOUSE_CLICKED,  new ButtonClickHandler(helloLabel, nameField) );
+
 
         // Création de la scene
         Scene scene = new Scene( vbox );
@@ -80,5 +80,9 @@ public class BonjourFenetre extends Application {
         primaryStage.setWidth(400);
         primaryStage.setHeight(400);
         primaryStage.show();
+    }
+    // Actions effectuées lors du clic sur le bouton
+    private void handleButonClick(Event event) {
+        helloLabel.setText( "Bonjour à toi, "+nameField.getText() );
     }
 }
