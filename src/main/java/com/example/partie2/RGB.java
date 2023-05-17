@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Exercice4 extends Application {
+public class RGB extends Application {
 
     //Compteurs
     AtomicInteger cmpV = new AtomicInteger(0);
